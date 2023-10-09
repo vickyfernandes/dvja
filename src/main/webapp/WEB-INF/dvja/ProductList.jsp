@@ -20,7 +20,7 @@
 
         <s:if test="searchQuery != null">
             <p class="bg-success">
-                Listing products with <strong>search query: </strong> <%= request.getParameter("searchQuery") %>
+                Listing products with <strong>search query: </strong> <%=org.owasp.encoder.Encode.forHtml( request.getParameter("searchQuery") )%>
                 &nbsp; &nbsp;
                 <small><a href="<s:url action="listProduct"/>">
                     <i class="fa fa-remove"></i> Clear
