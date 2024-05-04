@@ -1,5 +1,6 @@
 package com.appsecco.dvja.controllers;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
@@ -49,14 +50,14 @@ public class PingAction extends BaseController {
         String line = null;
         String output = "Output:\n\n";
 
-        while((line = stdinputReader.readLine()) != null)
+        while((line = BoundedLineReader.readLine(stdinputReader, 5_000_000)) != null)
             output += line + "\n";
 
         output += "\n";
         output += "Error:\n\n";
 
         stdinputReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-        while((line = stdinputReader.readLine()) != null)
+        while((line = BoundedLineReader.readLine(stdinputReader, 5_000_000)) != null)
             output += line + "\n";
 
         setCommandOutput(output);
